@@ -78,7 +78,7 @@ class GiftOverviewScreen extends StatelessWidget {
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
-            childAspectRatio: 5 / 1,
+            childAspectRatio: MediaQuery.of(context).size.height > 1000 ? 10 / 1 : 5/1,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10),
       ),

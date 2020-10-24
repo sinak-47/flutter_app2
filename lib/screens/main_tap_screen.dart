@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app2/screens/main_bar/best_price_screen.dart';
-import 'package:flutter_app2/screens/main_bar/gift_overview_screen.dart';
-import 'package:flutter_app2/screens/main_bar/market_screen.dart';
-import 'package:flutter_app2/screens/main_bar/profile_screen.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_app2/screens/best_price_screen.dart';
+import 'package:flutter_app2/screens/gift_overview_screen.dart';
+import 'package:flutter_app2/screens/market_screen.dart';
+import 'package:flutter_app2/screens/profile_screen.dart';
 
 class MainTapScreen extends StatefulWidget {
   @override
@@ -12,18 +16,38 @@ class MainTapScreen extends StatefulWidget {
 
 class _MainTapScreenState extends State<MainTapScreen> {
   int _selectedPageIndex = 2;
-  PageController _c = PageController(initialPage: 2);
+  PageController _pageController;
+  bool _isBottomRequest = false;
+
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: 2);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        controller: _c,
+        scrollDirection: Axis.horizontal,
+        physics: BouncingScrollPhysics(),
+        controller: _pageController,
         onPageChanged: (newPage) {
           setState(() {
+            if (!_isBottomRequest) {
+              print('test');
+              this._pageController.animateToPage(newPage,
+                  duration: const Duration(milliseconds: 50),
+                  curve: Curves.easeInOut);
+            }
             this._selectedPageIndex = newPage;
+
+            Timer(Duration(milliseconds: 50), () {
+              _isBottomRequest = false;
+            });
           });
         },
+        dragStartBehavior: DragStartBehavior.start,
         children: [
           BestPriceScreen(),
           MarketScreen(),
@@ -33,9 +57,10 @@ class _MainTapScreenState extends State<MainTapScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
-          this._c.animateToPage(index,
-              duration: const Duration(milliseconds: 500),
+          this._pageController.animateToPage(index,
+              duration: const Duration(milliseconds: 100),
               curve: Curves.easeInOut);
+          _isBottomRequest = true;
         },
         elevation: 0,
         unselectedItemColor: Colors.grey,

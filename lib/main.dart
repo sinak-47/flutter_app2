@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/providers/gifts_provider.dart';
-import 'package:flutter_app2/screens/main_bar/best_price_screen.dart';
-import 'package:flutter_app2/screens/main_bar/gift_overview_screen.dart';
-import 'package:flutter_app2/screens/main_bar/main_tap_screen.dart';
-import 'package:flutter_app2/screens/main_bar/market_screen.dart';
-import 'package:flutter_app2/screens/main_bar/profile_screen.dart';
+import 'package:flutter_app2/screens/best_price_screen.dart';
+import 'package:flutter_app2/screens/gift_overview_screen.dart';
+import 'package:flutter_app2/screens/main_tap_screen.dart';
+import 'package:flutter_app2/screens/market_screen.dart';
+import 'package:flutter_app2/screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
